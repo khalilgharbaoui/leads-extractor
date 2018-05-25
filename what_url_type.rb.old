@@ -1,0 +1,9 @@
+# # this grabs the form name from the url and might be useful.
+# def what_url_type(url)
+#   url_type = CGI::parse(url)
+#   if url_type["show"].include? "Umzug"
+#     return @moving_urls.size
+#   elsif url_type["show"].include? "Reiniging"
+#     return @cleaning_urls.size
+#   end
+# end
