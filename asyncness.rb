@@ -45,14 +45,15 @@ def notify_done(number)
   puts
 end
 
-# rack-fiber-pool does something similar to this: It puts each request on a
+# rack-fiber-pool does something similar to this:
+# It puts each request on a
 # different fiber. When you Fiber.yield (either directly or with a library
 # such as em-synchrony doing that for you), the server goes on and handles the
 # next request on the line. Then, as the fibers get awaken (from the database
 # driver, or from an external http call, like on this example), the server
 # continues processing the original request.
 
-#NOTE
+#NOTE Example:
 # EM.run do
 #   # We put inside the lines that depend on each other on the same fiber. For
 #   # instance: printing the response depends on the response arriving.

@@ -114,7 +114,9 @@ class LeadExtractor
     puts "each request count: #{@each_array_size}".bold
     puts 'number of leads are the equal even after parsing?'.bold
     puts (@each_array_size.sum == @lead_count.size).to_s.colorize(:green).bold
-    puts "total leads: #{@lead_count.size}".colorize(:yellow).bold
+    print_total_by_lead_type(@json, "UMZUG")
+    print_total_by_lead_type(@json, "REINIGUNG")
+    puts "Total leads: #{@lead_count.size}".colorize(:yellow).bold
   end
 
   def clear_json
@@ -152,6 +154,16 @@ class LeadExtractor
       id = index + 1
       puts "#{id} | #{key['Submitted']} | #{key['lead_type']} | #{key['Ticket']} | #{key['Anrede']} #{key['your-name']} #{key['Vorname']}"
     end
+  end
+  def print_total_by_lead_type(values, lead_type)
+    raise ArgumentError, '⚠️ Invalid argument! responds to: "UMZUG" or "REINIGUNG"' unless %w[UMZUG REINIGUNG].any? { |word| word == lead_type.upcase }
+    @size = []
+    @json.each do |keys, valuez|
+      valuez.select { |lead| lead['lead_type'] == lead_type }.each do |key, value|
+        @size << value
+      end
+    end
+    puts "Total #{lead_type.downcase}: #{@size.size}".bold
   end
 
   def print_quarter_year_size(keys, values)
